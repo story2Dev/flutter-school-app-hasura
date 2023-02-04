@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:flutter_application_school/config/app_color.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
 
-  void loginAction() {}
+  void loginAction() {
+    Get.offAllNamed('/');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +26,7 @@ class LoginScreen extends StatelessWidget {
                   'View score and exam',
                   style: TextStyle(
                     fontSize: Theme.of(context).textTheme.titleLarge?.fontSize,
-                    color: Colors.purple,
+                    color: primaryColor,
                   ),
                 )
               ],
@@ -80,13 +84,14 @@ class LoginScreen extends StatelessWidget {
                       const EdgeInsets.all(15)),
                   elevation: MaterialStateProperty.all(2.0),
                   backgroundColor:
-                      MaterialStateProperty.all<Color>(Colors.purple),
+                      MaterialStateProperty.all<Color>(primaryColor),
                   foregroundColor:
                       MaterialStateProperty.all<Color>(Colors.white),
                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                     RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(18.0),
-                        side: const BorderSide(color: Colors.purple)),
+                      borderRadius: BorderRadius.circular(18.0),
+                      side: BorderSide(color: primaryColor),
+                    ),
                   ),
                 ),
                 child: const Text('Login'),
