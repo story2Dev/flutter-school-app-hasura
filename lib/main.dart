@@ -3,6 +3,7 @@ import 'package:get/route_manager.dart';
 
 import 'config/config.dart';
 import 'screens/screen.dart';
+import 'bindings/binding.dart';
 
 void main() {
   // get env from string when run app
@@ -25,7 +26,10 @@ class MyApp extends StatelessWidget {
       initialRoute: '/login',
       getPages: [
         GetPage(name: '/', page: () => const HomeScreen()),
-        GetPage(name: '/login', page: () => const LoginScreen()),
+        GetPage(
+            name: '/login',
+            page: () => const LoginScreen(),
+            binding: LoginBinding()),
       ],
     );
   }
