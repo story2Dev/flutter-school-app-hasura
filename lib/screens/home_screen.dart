@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_school/config/config.dart';
+import 'package:flutter_application_school/controllers/home_controller.dart';
+import 'package:get/get.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -9,6 +11,13 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final homeController = HomeController();
+  @override
+  void initState() {
+    super.initState();
+    homeController.getScore();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,9 +40,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     ],
                   ),
                 ),
-                Image.network(
-                  'https://cdn-icons-png.flaticon.com/512/3429/3429402.png',
-                  height: 60.0,
+                InkWell(
+                  onTap: () => Get.toNamed('/profile'),
+                  child: Image.network(
+                    'https://cdn-icons-png.flaticon.com/512/3429/3429402.png',
+                    height: 60.0,
+                  ),
                 )
               ],
             ),
@@ -102,53 +114,56 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             const SizedBox(height: 20),
             // grid subject
-            GridView.count(
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 10,
-              crossAxisCount: 2,
-              physics:
-                  const NeverScrollableScrollPhysics(), // to disable GridView's scrolling
-              shrinkWrap: true,
-              children: <Widget>[
-                Container(
-                  decoration: BoxDecoration(
-                      color: Colors.teal[100],
-                      borderRadius: BorderRadius.circular(16.0)),
-                  child: Stack(children: [
-                    Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text(
-                            '3.4',
-                            style: TextStyle(fontSize: 30.0),
-                          ),
-                          const SizedBox(height: 10),
-                          const Text(
-                            'Average score',
-                            style: TextStyle(),
-                          ),
-                          const SizedBox(height: 20),
-                          Text(
-                            'Maths',
-                            style: Theme.of(context).textTheme.titleMedium,
-                          )
-                        ],
-                      ),
-                    ),
-                    Positioned(
-                      top: 6,
-                      right: 6,
-                      child: Image.network(
-                        'https://cdn-icons-png.flaticon.com/512/3320/3320938.png',
-                        width: 30,
-                      ),
-                    )
-                  ]),
-                ),
-              ],
-            )
+            Obx(() => GridView.count(
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 10,
+                  crossAxisCount: 2,
+                  physics:
+                      const NeverScrollableScrollPhysics(), // to disable GridView's scrolling
+                  shrinkWrap: true,
+                  children: homeController.scores
+                      .map(
+                        (score) => Container(
+                          decoration: BoxDecoration(
+                              color: Colors.teal[100],
+                              borderRadius: BorderRadius.circular(16.0)),
+                          child: Stack(children: [
+                            Padding(
+                              padding: const EdgeInsets.all(16.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    score.score.toString(),
+                                    style: const TextStyle(fontSize: 30.0),
+                                  ),
+                                  const SizedBox(height: 10),
+                                  const Text(
+                                    'Average score',
+                                    style: TextStyle(),
+                                  ),
+                                  const SizedBox(height: 20),
+                                  Text(
+                                    score.subject.subjectname.toString(),
+                                    style:
+                                        Theme.of(context).textTheme.titleMedium,
+                                  )
+                                ],
+                              ),
+                            ),
+                            Positioned(
+                              top: 6,
+                              right: 6,
+                              child: Image.network(
+                                'https://cdn-icons-png.flaticon.com/512/3320/3320938.png',
+                                width: 30,
+                              ),
+                            )
+                          ]),
+                        ),
+                      )
+                      .toList(),
+                ))
           ],
         ),
       ),

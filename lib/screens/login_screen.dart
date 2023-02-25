@@ -5,11 +5,9 @@ import 'package:flutter_application_school/config/app_color.dart';
 import '../controllers/controller.dart';
 
 class LoginScreen extends StatelessWidget {
-  const LoginScreen({Key? key}) : super(key: key);
-
-  void loginAction() {
-    Get.offAllNamed('/');
-  }
+  LoginScreen({Key? key}) : super(key: key);
+  TextEditingController email = TextEditingController();
+  TextEditingController password = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -49,13 +47,15 @@ class LoginScreen extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 10),
-                    const TextField(
-                      decoration: InputDecoration(
+                    TextField(
+                      controller: email,
+                      decoration: const InputDecoration(
                         label: Text('Email'),
                       ),
                     ),
                     const SizedBox(height: 10),
                     Obx(() => TextField(
+                          controller: password,
                           obscureText: loginController.showPassword.value,
                           decoration: InputDecoration(
                             label: const Text('Password'),
@@ -94,29 +94,38 @@ class LoginScreen extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(height: 30),
-                    SizedBox(
-                      width: double.infinity,
-                      child: TextButton(
-                        onPressed: loginAction,
-                        style: ButtonStyle(
-                          padding: MaterialStateProperty.all<EdgeInsets>(
-                              const EdgeInsets.all(15)),
-                          elevation: MaterialStateProperty.all(2.0),
-                          backgroundColor:
-                              MaterialStateProperty.all<Color>(primaryColor),
-                          foregroundColor:
-                              MaterialStateProperty.all<Color>(Colors.white),
-                          shape:
-                              MaterialStateProperty.all<RoundedRectangleBorder>(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(18.0),
-                              side: BorderSide(color: primaryColor),
+                    Obx(() => SizedBox(
+                          height: 50,
+                          width: double.infinity,
+                          child: TextButton(
+                            onPressed: () {
+                              loginController.login(email.text, password.text);
+                            },
+                            style: ButtonStyle(
+                              padding: MaterialStateProperty.all<EdgeInsets>(
+                                  const EdgeInsets.all(15)),
+                              elevation: MaterialStateProperty.all(2.0),
+                              backgroundColor: MaterialStateProperty.all<Color>(
+                                  primaryColor),
+                              foregroundColor: MaterialStateProperty.all<Color>(
+                                  Colors.white),
+                              shape: MaterialStateProperty.all<
+                                  RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(18.0),
+                                  side: BorderSide(color: primaryColor),
+                                ),
+                              ),
                             ),
+                            child: loginController.logginIn.value
+                                ? const SizedBox(
+                                    width: 20,
+                                    child: CircularProgressIndicator(
+                                      color: Colors.white,
+                                    ))
+                                : const Text('Login'),
                           ),
-                        ),
-                        child: const Text('Login'),
-                      ),
-                    )
+                        ))
                   ]),
             ),
           ],

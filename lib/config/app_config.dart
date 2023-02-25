@@ -4,4 +4,5 @@ class AppConfig {
   static const String name = 'School App';
   static const String defaultLocale = 'LO';
   static BaseEnv env = Environment.env;
+  static const String accessToken = 'accessToken';
 }

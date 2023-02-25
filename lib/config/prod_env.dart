@@ -3,7 +3,7 @@ part of 'app_env.dart';
 class ProdEnv implements BaseEnv {
   @override
   // TODO: implement apiAuth
-  String get apiAuth => 'http://product.com';
+  String get apiAuth => 'http://localhost:4000';
 
   @override
   // TODO: implement apiUrl
