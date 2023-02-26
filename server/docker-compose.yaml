@@ -22,8 +22,8 @@ services:
       HASURA_GRAPHQL_UNAUTHORIZED_ROLE: public
       HASURA_GRAPHQL_LOG_LEVEL: debug
       HASURA_GRAPHQL_ENABLE_CONSOLE: 'true'
-      HASURA_GRAPHQL_DEFAULT_NAMING_CONVENTION: graphql-default
-      HASURA_GRAPHQL_EXPERIMENTAL_FEATURES: naming_convention
+      # HASURA_GRAPHQL_DEFAULT_NAMING_CONVENTION: graphql-default
+      # HASURA_GRAPHQL_EXPERIMENTAL_FEATURES: naming_convention
     ports:
       - '8080:8080'
   hasura-auth:
